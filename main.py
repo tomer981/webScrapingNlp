@@ -5,6 +5,7 @@ import time
 import hashlib
 from datetime import datetime
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 
 from config import Config
 from article import Article
@@ -21,9 +22,11 @@ class Index:
 
     def _save_article(self, article_url):
         hash_article_url = str(hashlib.md5(article_url.encode()).hexdigest())
-        if not os.path.isfile('{0}/{1}.{2}'.format(self.articles_dir,hash_article_url, "json")):
+        if not os.path.isfile('{0}/{1}.{2}'.format(self.articles_dir, hash_article_url, "json")):
             article_web = Article(article_url)
             article_web.article_process()
+            if not os.path.exists(self.articles_dir):
+                os.makedirs(self.articles_dir)
             with open('{0}/{1}.{2}'.format(self.articles_dir,hash_article_url, "json"), 'w', encoding='utf-8') as f:
                 json_string = json.dumps(article_web.__dict__)
                 f.write(json_string)
@@ -40,7 +43,8 @@ class Index:
         driver = webdriver.Chrome(options=chrome_options)
         driver.get(self.url)
         try:
-            articles = driver.find_elements_by_class_name('block-link__overlay-link')
+            # articles = driver.find_elements_by_class_name('block-link__overlay-link')
+            articles = driver.find_elements(By.CLASS_NAME, 'block-link__overlay-link')
             for element in articles:
                 article_url = element.get_attribute('href')
                 try:
