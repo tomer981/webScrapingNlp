@@ -8,6 +8,7 @@ class Config:
 
     @classmethod
     def init_by_conf(cls, config_path):
+        print("tomer"+ config_path)
         with open(config_path, 'r') as f:
             config_file = yaml.safe_load(f)
             base_url = config_file.get('base_url')

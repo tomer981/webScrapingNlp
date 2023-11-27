@@ -1,0 +1,11 @@
+services:
+  crawler:
+    container_name: crawler
+    hostname: crawler
+    build:
+      dockerfile: Dockerfile
+      context: .
+    restart: always
+    volumes:
+      - ./data:/data
+      - ./app:/app

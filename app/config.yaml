@@ -1,4 +1,4 @@
 
   base_url: 'https://www.bbc.com/'
-  articles_dir: 'data'
+  articles_dir: '/data/bbc'
   time_interval: 10
