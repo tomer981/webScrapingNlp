@@ -1,7 +1,16 @@
+version: "3.9"
+
+networks:
+  backend:
+    external:
+      name: backend
+
 services:
   crawler:
     container_name: crawler
     hostname: crawler
+    networks:
+      - backend
     build:
       dockerfile: Dockerfile
       context: .
